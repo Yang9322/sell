@@ -2,10 +2,13 @@ import Vue from 'vue';
 import App from './App';
 import VueRouter from 'vue-router';
 import goods from 'components/goods/goods';
-import ratings from 'components/ratings/ratings'
-import seller from 'components/seller/seller.vue'
-Vue.use(VueRouter);
+import ratings from 'components/ratings/ratings';
+import seller from 'components/seller/seller.vue';
+import './common/stylus/index.styl';
+import VueResource from 'vue-resource';
 
+Vue.use(VueRouter);
+Vue.use(VueResource);
 let app = Vue.extend(App);
 
 let router = new VueRouter({

@@ -25,7 +25,7 @@ var apiRouter = express.Router();
 apiRouter.get('/seller', function (req,res) {
   res.json({
     errno: 0,
-    seller: seller
+    data: seller
   });
 });
 
