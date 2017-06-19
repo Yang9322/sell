@@ -29,7 +29,7 @@
     <div class="background">
       <img :src="seller.avatar" width="100%" height="100%">
     </div>
-    <div v-show="detailShow" class="detail">
+    <div v-show="detailShow" class="detail" transition="fade">
       <div class="detail-Wrapper clearfix">
         <div class="detail-main">
           <h1 class="name">{{seller.name}}</h1>
@@ -47,10 +47,17 @@
               <span class="text">{{seller.supports[$index].description}}</span>
             </li>
           </ul>
-
+          <div class="title">
+            <div class="line"></div>
+            <div class="text">商家公告</div>
+            <div class="line"></div>
+          </div>
+          <div class="bulletin">
+            <p class="content">{{seller.bulletin}}</p>
+          </div>
         </div>
       </div >
-      <div class="detail-close">
+      <div class="detail-close" @click="hideDetail">
         <i class="icon-close"></i>
       </div>
     </div>
@@ -75,6 +82,9 @@
     methods : {
       showDetail() {
         this.detailShow = true;
+      },
+      hideDetail() {
+        this.detailShow = false;
       }
     },
     created() {
@@ -211,7 +221,15 @@
       width : 100%
       height : 100%
       overflow : auto
+      -webkit-backdrop-filter: blur(10px)
       background : rgba(7,17,27,0.8)
+      transition: all 0.5s
+      &.fade-transition
+        opacity: 1
+        background: rgba(7,17,27,0.8)
+      &.fade-enter,&.fade-leave
+        opacity: 0
+        background: rgba(7,17,27,0)
       .detail-Wrapper
         min-height : 100%
         width  : 100%
@@ -269,6 +287,14 @@
               .text
                 font-size: 12px
                 line-height: 16px
+
+          .bulletin
+            width: 80%
+            margin: 0 auto
+            .content
+              padding: 0 12px
+              line-height: 24px
+              font-size: 12px
       .detail-close
         position : relative
         width : 32px
