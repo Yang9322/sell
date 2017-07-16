@@ -1,41 +1,43 @@
 <template>
-  <div class="goods">
-    <div class="menu-wrapper" v-el:menu-wrapper>
-      <ul>
-        <li v-for="item in goods" class="menu-item" :class="{'current':currentIndex===$index}" @click="selectMenu($index,$event)">
+  <div>
+    <div class="goods">
+      <div class="menu-wrapper" ref="menuWrapper">
+        <ul>
+          <li v-for="(item,index) in goods" class="menu-item" :class="{'current':currentIndex===index}" @click="selectMenu(index,$event)">
           <span class="text border-1px">
             <span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>{{item.name}}
           </span>
-        </li>
-      </ul>
-    </div>
-    <div class="foods-wrapper" v-el:foods-wrapper>
-      <ul style="list-style-type: none">
-        <li v-for="item in goods" class="food-list food-list-hook">
-          <h1 class="title">{{item.name}}</h1>
-          <ul>
-            <li v-for="food in item.foods" class="food-item border-1px">
-              <div class="icon">
-                <img width="57" height="57" :src="food.icon">
-              </div>
-              <div class="content">
-                <h2 class="name">{{food.name}}</h2>
-                <p class="desc">{{food.description}}</p>
-                <div class="extra">
-                  <span class="count">月售{{food.sellCount}}份</span>
-                  <span>好评率{{food.rating}}%</span>
+          </li>
+        </ul>
+      </div>
+      <div class="foods-wrapper" ref="foodsWrapper">
+        <ul style="list-style-type: none">
+          <li v-for="item in goods" class="food-list" ref="foodList">
+            <h1 class="title">{{item.name}}</h1>
+            <ul>
+              <li v-for="food in item.foods" class="food-item border-1px">
+                <div class="icon">
+                  <img width="57" height="57" :src="food.icon">
                 </div>
-                <div class="price">
-                  <span class="now">￥{{food.price}}</span>
-                  <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
+                <div class="content">
+                  <h2 class="name">{{food.name}}</h2>
+                  <p class="desc">{{food.description}}</p>
+                  <div class="extra">
+                    <span class="count">月售{{food.sellCount}}份</span>
+                    <span>好评率{{food.rating}}%</span>
+                  </div>
+                  <div class="price">
+                    <span class="now">￥{{food.price}}</span>
+                    <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
+                  </div>
                 </div>
-              </div>
-            </li>
-          </ul>
-        </li>
-      </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
     </div>
-    <shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
   </div>
 </template>
 
@@ -87,15 +89,15 @@
         if (!event._constructed) {
           return;
         }
-        let foodList = this.$els.foodsWrapper.getElementsByClassName('food-list-hook');
+        let foodList = this.$refs.foodList
         let el = foodList[index];
         this.foodsScroll.scrollToElement(el,300);
       },
       _initScroll() {
-        this.menuScroll = new BScroll(this.$els.menuWrapper,{
+        this.menuScroll = new BScroll(this.$refs.menuWrapper,{
           click: true
         });
-        this.foodsScroll = new BScroll(this.$els.foodsWrapper,{
+        this.foodsScroll = new BScroll(this.$refs.foodsWrapper,{
           probeType: 3
         });
         this.foodsScroll.on('scroll',(pos)=>{
@@ -103,7 +105,7 @@
         });
       },
       _calculateHeight() {
-        let foodList = this.$els.foodsWrapper.getElementsByClassName('food-list-hook');
+        let foodList = this.$refs.foodList;
         let height = 0;
         this.listHeight.push(height);
         for (let i=0; i<foodList.length; i++) {

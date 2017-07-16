@@ -42,9 +42,9 @@
             <div class="line"></div>
           </div>
           <ul v-if="seller.supports" class="supports">
-            <li class="support-item" v-for="item in seller.supports">
-              <span class="icon" :class="classMap[seller.supports[$index].type]"></span>
-              <span class="text">{{seller.supports[$index].description}}</span>
+            <li class="support-item" v-for="(item,index) in seller.supports">
+              <span class="icon" :class="classMap[seller.supports[index].type]"></span>
+              <span class="text">{{seller.supports[index].description}}</span>
             </li>
           </ul>
           <div class="title">
@@ -223,11 +223,9 @@
       overflow : auto
       -webkit-backdrop-filter: blur(10px)
       background : rgba(7,17,27,0.8)
-      transition: all 0.5s
-      &.fade-transition
-        opacity: 1
-        background: rgba(7,17,27,0.8)
-      &.fade-enter,&.fade-leave
+      &.fade-enter-active,&.fade-leave-active
+        transition: all 0.5s
+      &.fade-enter,&.fade-leave-active
         opacity: 0
         background: rgba(7,17,27,0)
       .detail-Wrapper
