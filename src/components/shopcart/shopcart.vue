@@ -210,6 +210,7 @@
         position: fixed
         left: 32px
         bottom: 22px
+        width: 16px
         z-index: 500
         transition: all 0.4s cubic-bezier(0.49, -0.29, 0.75, 0.41)
         .inner
