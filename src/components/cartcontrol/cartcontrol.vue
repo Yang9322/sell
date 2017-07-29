@@ -25,10 +25,9 @@
       },
       methods:{
         addCart(event) {
-//          console.log(event);
-//          if (!event._constructed) {
-//            return;
-//          }
+          if (!event._constructed) {
+            return;
+          }
           if(!this.food.count) {
             Vue.set(this.food,'count',1);
           }
