@@ -5,7 +5,7 @@ import App from './App';
 import goods from '../src/components/goods/goods';
 import ratings from '../src/components/ratings/ratings';
 import seller from '../src/components/seller/seller';
-
+import custom from  '../src/components/CustomView/custom.vue'
 import '../src/common/stylus/index.styl';
 
 Vue.use(VueRouter);
@@ -23,7 +23,11 @@ const routes = [{
 }, {
   path: '/seller',
   component: seller
-}];
+}, {
+  path:'/custom',
+  component: custom
+}
+];
 
 const router = new VueRouter({
   linkActiveClass: 'active',
